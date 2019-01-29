@@ -129,12 +129,6 @@ where 1=1
         type = #{type}
 </select>
 
-<!-- 根据id查询 apikey -->
-<select id="selectById"  resultMap="BaseResultMap" parameterType="Object">
-    select <include refid="Base_Column_List" /> 
-     from apikey where id = #{id}
-</select>
-
 <!-- apikey 列表总数-->
 <select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
 	select count(1) from apikey 
@@ -142,7 +136,7 @@ where 1=1
 </select>
   	
 <!-- 查询apikey列表 -->
-<select id="selectByMap" resultMap="BaseResultMap"  parameterType="Pager">
+<select id="selectByMap" resultMap="BaseResultMap">
 	select 
 	<include refid="Base_Column_List"/>
 	from apikey 

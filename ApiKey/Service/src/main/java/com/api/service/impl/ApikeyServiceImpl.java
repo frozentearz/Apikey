@@ -3,7 +3,6 @@ package com.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ import com.api.service.IApikeyService;
 @Service
 public class ApikeyServiceImpl implements IApikeyService {
 	
-	private final static Logger log = Logger.getLogger(ApikeyServiceImpl.class);
+	// private final static Logger log = Logger.getLogger(ApikeyServiceImpl.class);
 
 	@Autowired
     private IApikeyDao apikeydao;
