@@ -7,9 +7,9 @@
     <artifactId>ApiKey</artifactId>
     <version>0.0.1</version>
   </parent>
-  <artifactId>Controller</artifactId>
+  <artifactId>api</artifactId>
   <packaging>war</packaging>
-  <name>Controller Maven Webapp</name>
+  <name>api Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -25,21 +25,16 @@
     </dependency>
     <dependency>
         <groupId>com.api</groupId>
-        <artifactId>DAO</artifactId>
-        <version>0.0.1</version>
-    </dependency>
-    <dependency>
-        <groupId>com.api</groupId>
         <artifactId>RPC</artifactId>
         <version>0.0.1</version>
     </dependency>
     <dependency>
-        <groupId>org.aspectj</groupId>
-        <artifactId>aspectjweaver</artifactId>
-        <version>1.9.1</version>
+        <groupId>com.api</groupId>
+        <artifactId>DAO</artifactId>
+        <version>0.0.1</version>
     </dependency>
   </dependencies>
   <build>
-    <finalName>Controller</finalName>
+    <finalName>api</finalName>
   </build>
 </project>

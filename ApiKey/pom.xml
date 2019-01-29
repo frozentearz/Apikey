@@ -128,6 +128,7 @@
   	
   	
   	
-  	<module>Controller</module>
+  	
+  	<module>api</module>
   </modules>
 </project>
