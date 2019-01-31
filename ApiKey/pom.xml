@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xiaofangwei</groupId>
+    <groupId>com.api</groupId>
     <artifactId>apikey</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>apifactory</module>
-        <module>apiservice</module>
-        <module>apirpc</module>
+        <module>api</module>
+        <module>service</module>
+        <module>rpc</module>
         <module>common</module>
-        <module>apidao</module>
+        <module>dao</module>
     </modules>
     <dependencies>
         <dependency>
