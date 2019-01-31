@@ -124,11 +124,6 @@
   	<module>DAO</module>
   	<module>RPC</module>
   	<module>Service</module>
-  	
-  	
-  	
-  	
-  	
   	<module>api</module>
   </modules>
 </project>

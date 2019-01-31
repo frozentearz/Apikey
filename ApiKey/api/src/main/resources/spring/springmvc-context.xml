@@ -17,15 +17,16 @@
         扫描这些类的注解，根据其注解将这些类实例化，作为容器中的组件
         base-package属性即设置要扫描的包
         容器中包括Controller，Service，Handler
-     -->
-    <context:component-scan base-package="com.api.controller"/>
-    <context:component-scan base-package="com.api.service"/> 
+     --><!-- 
+    <context:annotation-config/>
+    <context:component-scan base-package="com.*.service"/> 
+    <context:component-scan base-package="com.*.service.impl"/> -->
 
     <!-- 配置根视图：欢迎视图，首页 -->
     <mvc:view-controller path="/" view-name="index.jsp"/>
     
     <!-- 配置静态资源的请求映射关系 -->
-<!--     <mvc:resources location="/static/" mapping="/static/**"></mvc:resources> -->
+    <!--     <mvc:resources location="/static/" mapping="/static/**"></mvc:resources> -->
     
     <!-- 配置SpringMVC的注解驱动
         让SpringMVC去加载默认的各种Handler，Adapter

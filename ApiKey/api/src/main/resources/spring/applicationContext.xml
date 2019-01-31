@@ -8,6 +8,8 @@
         http://www.springframework.org/schema/context/spring-context-4.3.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+        
+
 
     <!--属性占位文件引入，可以通过${属性名}获得属性文件中的内容-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
@@ -42,8 +44,10 @@
     <!--下面的配置暂时未使用 -->
     <context:component-scan base-package="com.api.controller">
         <context:exclude-filter type="annotation" expression="org.springframework.web.servlet.mvc.Controller"/>
-    </context:component-scan>
-    
+    </context:component-scan><!-- 
+    <context:annotation-config/>
+    <context:component-scan base-package="com.api.service"/> -->
+
    <!--  <bean id="teacherMapper" class="edu.nobel.dao.TeacherMapper"></bean>
     <bean id="orderMapper" class="edu.nobel.dao.OrderMapper"></bean>
     <bean id="studentMapper" class="edu.nobel.dao.StudentMapper"></bean> -->
