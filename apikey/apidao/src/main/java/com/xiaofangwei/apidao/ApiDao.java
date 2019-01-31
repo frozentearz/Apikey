@@ -1,0 +1,24 @@
+package com.xiaofangwei.apidao;
+
+import org.springframework.stereotype.Repository;
+import com.xiaofangwei.common.model.pojo.ApiKey;
+
+import java.util.List;
+
+/**
+ * @description:
+ * @author: XFW
+ * @version:
+ * @create: 2019-01-31 15:53
+ **/
+@Repository
+public interface ApiDao {
+
+    List<ApiKey> selectList();
+
+    ApiKey selectListById(String Id);
+
+    List<ApiKey> selectListByName(String name);
+
+    ApiKey selectListByVerify(String name, String password, String type);
+}
