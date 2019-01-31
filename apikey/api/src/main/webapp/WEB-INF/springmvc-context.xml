@@ -26,28 +26,15 @@
     	让SpringMVC去加载默认的各种Handler，Adapter
      -->
     <mvc:annotation-driven />
-
-    <!-- 配置根视图：欢迎视图，首页 -->
-    <mvc:view-controller path="/" view-name="index"/>
-
-    <!-- 配置静态资源的请求映射关系 -->
-    <!--<mvc:resources location="/resources/admin/" mapping="/resources/admin/**" />
-    <mvc:resources location="/resources/avatars/" mapping="/resources/avatars/**" />-->
-
-    <!-- 视图解析器
-    	将Controller返回的String与prefix和suffix拼接成结果视图的资源
-    	prefix + return + suffix
-    	/WEB-INF/pages/success.jsp
-     -->
+    <mvc:default-servlet-handler />
+    
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!-- 视图解析器的前缀 -->
-        <!--<property name="prefix" value="/WEB-INF/view/"/>-->
-        <property name="prefix" value="/"/>
-        <!-- 视图解析器的后缀 -->
+        <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".html"/>
-        <property name="order" value="1" />
     </bean>
 
+    <!-- 配置根视图：欢迎视图，首页 -->
+<!--     <mvc:view-controller path="/" view-name="index"/> -->
 
     <!-- 配置拦截器列表 -->
     <!--<mvc:interceptors>
@@ -57,27 +44,11 @@
                   class="edu.nobel.interceptor.LoginInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>-->
-
-    <!-- 上传文件配置 -->
-    <!--<bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
-        &lt;!&ndash; 4M &ndash;&gt;
-        <property name="maxUploadSize" value="4194304" />
-        <property name="defaultEncoding" value="utf-8" />
-    </bean>-->
+    <!-- <mvc:exclude-mapping path="/swagger*/**"/>
+    <mvc:exclude-mapping path="/v2/**"/>
+    <mvc:exclude-mapping path="/webjars/**"/> -->
 
     <!-- 配置自定义异常处理 -->
     <!--<bean id="ExceptionHandler" class="edu.nobel.exception.ExceptionHandler" />-->
 
-    <!-- 配置对AOP注解的支持
-   	属性 proxy-target-class设置为true，设定使用cglib的方式进行代理
-    -->
-    <!-- <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy> -->
-    <!-- <bean id="loggerAdvice" class="com.javaee.scms.aspect.LoggerAdvice" ></bean>
-     <aop:config>
-         <aop:pointcut expression="execution(* com.javaee.scms.web.controller.*.*(..))" id="controller"/>
-         <aop:aspect ref="loggerAdvice">
-             <aop:around method="afterReturning" pointcut-ref="controller"/>
-         </aop:aspect>
-     </aop:config> -->
 </beans>

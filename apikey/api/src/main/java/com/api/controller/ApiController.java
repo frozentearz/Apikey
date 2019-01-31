@@ -1,55 +1,71 @@
 package com.api.controller;
 
-import com.api.common.model.pojo.ApiKey;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import com.api.rpc.IApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.List;
 
-/**
- * @description:
- * @author: XFW
- * @version:
- * @create: 2019-01-31 12:10
- **/
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.api.common.model.pojo.ApiKey;
+import com.api.common.model.pojo.ResultVO;
+import com.api.rpc.IApiService;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+
+
 @Controller
 public class ApiController {
-    private final static Logger log = Logger.getLogger(ApiController.class);
-
+	
     @Autowired
     private IApiService apiService;
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public String test() {
-        return "test";
-    }
-
-    @RequestMapping("/apiTest")
-    @ResponseBody
-    public String apiTest() {
-        return apiService.apiTest();
-    }
-
+    
+    private final static Logger log = Logger.getLogger(ApiController.class);
+    
+    @ApiOperation(value = "获得所有的api对象list", notes = "get请求，查询所有的api。")
     @ResponseBody
     @RequestMapping(value = "/all", method = { RequestMethod.GET, RequestMethod.POST })
-    public String getApis() {
+    public ResponseEntity<String> getApis() {
+    	
+    	ResultVO<Object> rvo = new ResultVO<Object>();
         log.info("查询全部数据......");
+        
         List<ApiKey> apiKeys = apiService.selectList();
-        log.info("查询完成...... 共：" + apiKeys.size() + "条数据。");
-        return apiKeys.toString();
+        
+        if (apiKeys != null) {
+        	rvo.setCode(1);
+        	rvo.setMsg("查询成功");
+        	rvo.setData(apiKeys.get(1));
+        	return new ResponseEntity<String>(JSON.toJSON(rvo).toString(), HttpStatus.OK);
+        } else {
+        	rvo.setCode(0);
+        	rvo.setMsg("查询失败");
+        	rvo.setData(null);
+        	return new ResponseEntity<String>(JSON.toJSON(rvo).toString(), HttpStatus.OK);
+        }
     }
-
-
-    /*@ResponseBody
-	@RequestMapping(value = "/getApiByName", method = { RequestMethod.GET, RequestMethod.POST })
-    public void getApiByName(@RequestParam String name) {
-    	log.info("根据 " + name + " 查询数据......");
-    	List<ApiKey> apiKeys = apiService.selectListByName(name);
-    	log.info("查询完成...... 共：" + apiKeys.size() + "条数据。");
-    }*/
+    
+    @ApiOperation(value = "根据 id 查询 api ", notes = "根据 id 查询 api ")
+    @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String")
+    @ResponseBody
+    @RequestMapping(value = "/getApiById", method = { RequestMethod.GET, RequestMethod.POST })
+    public ResponseEntity<String> getApiById(@RequestParam String id) {
+//    	JSONObject jsonObject = new JSONObject();
+    	log.info("正在根据ID:" + id + "查询数据......");
+    	
+        ApiKey apiKey = apiService.selectById(id);
+        String apiJson = JSON.toJSON(apiKey).toString();
+        
+        log.info("查询完成...  -------  " + apiJson);
+        
+		return new ResponseEntity<String>(apiJson, HttpStatus.OK);
+    }
 }

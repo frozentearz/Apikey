@@ -1,14 +1,15 @@
 package com.api.apiservice;
 
 
-import com.api.dao.ApiDao;
-import com.api.rpc.IApiService;
-import com.api.common.model.pojo.ApiKey;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.api.common.model.pojo.ApiKey;
+import com.api.dao.ApiDao;
+import com.api.rpc.IApiService;
 
 /**
  * @description:
@@ -18,18 +19,12 @@ import java.util.List;
  **/
 @Service
 public class ApiServiceImpl implements IApiService {
-    @Override
-    public String apiTest() {
-        return "apiservice.ApiServiceImpl";
-    }
-// private final static Logger log = Logger.getLogger(ApikeyServiceImpl.class);
 
     @Autowired
     private ApiDao apiDao;
 
-    @Override
     public List<ApiKey> selectList() {
-        List<ApiKey> apikeys = new ArrayList<>();
+        List<ApiKey> apikeys = new ArrayList<ApiKey>();
         try {
             apikeys = apiDao.selectList();
         } catch (Exception e) {
@@ -37,19 +32,19 @@ public class ApiServiceImpl implements IApiService {
         }
         return apikeys;
     }
-    @Override
-    public ApiKey selectListById(String Id) {
+    
+    public ApiKey selectById(String Id) {
         ApiKey api = new ApiKey();
         try {
-            api = apiDao.selectListById(Id);
+            api = apiDao.selectById(Id);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return api;
     }
-    @Override
+    
     public List<ApiKey> selectListByName(String name) {
-        List<ApiKey> apikeys = new ArrayList<>();
+        List<ApiKey> apikeys = new ArrayList<ApiKey>();
         try {
             apikeys = apiDao.selectListByName(name);
         } catch (Exception e) {
@@ -57,7 +52,7 @@ public class ApiServiceImpl implements IApiService {
         }
         return apikeys;
     }
-    @Override
+    
     public ApiKey selectListByVerify(String name, String password, String type) {
         ApiKey api = new ApiKey();
         try {

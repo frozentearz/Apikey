@@ -29,9 +29,8 @@
 	</select>
 
 	<!-- 根据id查询 apikey -->
-	<select id="selectListById"  resultMap="BaseResultMap" parameterType="Object">
-		select <include refid="Base_Column_List" />
-		from apikey where id = #{id}
+	<select id="selectById"  resultMap="BaseResultMap" parameterType="Object">
+		select * from apikey where id = #{id}
 	</select>
 
 	<!-- 根据name查询 apikey -->
