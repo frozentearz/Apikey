@@ -17,11 +17,14 @@ import com.api.common.model.pojo.ApiKey;
 import com.api.result.common.CommonResult;
 import com.api.rpc.IApiService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
 
 @Controller
+@RequestMapping ( "/v1" )
+@Api(value = "API 接口", tags = "API 接口")
 public class ApiController {
 	
     @Autowired
@@ -74,35 +77,6 @@ public class ApiController {
     }
 
     /**
-     * @Title: getApisWithRoot
-     * @Description: TODO(查询所有 api)
-     * @type：非公开接口
-     * @param: name
-     * @return: ResponseEntity<String>
-     * @throws
-     */
-    @ResponseBody
-    @RequestMapping(value = "/allwithroot", method = { RequestMethod.GET, RequestMethod.POST })
-    public CommonResult<List<ApiKey>> getApisWithRoot() {
-    	
-        log.info("私有接口：" + this.getClass().getName() + ", 查询全部数据......");
-        
-        List<ApiKey> apiKeys = apiService.selectList();
-        
-        CommonResult<List<ApiKey>> cr = new CommonResult<>();
-        if (apiKeys != null) {
-        	cr.setCode(CommonResult.SUCCESS_CODE);
-        	cr.setMsg("查询成功");
-        	cr.setEntiy(apiKeys);
-        } else {
-        	cr.setCode(CommonResult.NULLDATA_CODE);
-        	cr.setMsg("空数据");
-        	cr.setEntiy(apiKeys);
-        }
-        return cr;
-    }
-    
-    /**
      * @Title: getApiByName
      * @Description: TODO(根据 name 查询所有 api)
      * @type：公开接口
@@ -114,20 +88,34 @@ public class ApiController {
     @ApiImplicitParam(name = "name", value = "name", required = true, dataType = "String")
     @ResponseBody
     @RequestMapping(value = "/getApiByName", method = { RequestMethod.GET, RequestMethod.POST })
-    public CommonResult<List<ApiKey>> getApiByName(@RequestParam String name) {
-    	log.info("私有接口：" + this.getClass().getName() + "根据 " + name + "查询全部数据......");
+    public CommonResult<List<Map<String, Object>>> getApiByName(@RequestParam String name) {
+    	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 查询全部数据......");
     	
     	List<ApiKey> apiKeys = apiService.selectListByName(name);
-    	CommonResult<List<ApiKey>> cr = new CommonResult<>();
     	
+    	CommonResult<List<Map<String, Object>>> cr = new CommonResult<>();
+    	List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        Map<String, Object> resultObject = new HashMap<String, Object>();
+        
+    	for (ApiKey api : apiKeys) {
+    		if (api.getDeleted() == 0) {
+        		resultObject.put("id", api.getId());
+            	resultObject.put("name", api.getName());
+            	resultObject.put("type", api.getType());
+            	resultObject.put("key", api.getKey());
+            	resultObject.put("createTime", api.getCreateTime());
+            	resultObject.put("status", api.getStatus());
+            	result.add(resultObject);
+        	}
+    	}
         if (apiKeys != null) {
         	cr.setCode(CommonResult.SUCCESS_CODE);
         	cr.setMsg("查询成功");
-        	cr.setEntiy(apiKeys);
+        	cr.setEntiy(result);
         } else {
         	cr.setCode(CommonResult.NULLDATA_CODE);
         	cr.setMsg("空数据");
-        	cr.setEntiy(apiKeys);
+        	cr.setEntiy(result);
         }
         return cr;
     }

@@ -17,7 +17,7 @@ public class ApiKey {
     private Date createTime;//
     private Date updateTime;//
     private Integer status;//   apikey状态：1可用，2即将失效，0失效
-    private Integer deleted;//
+    private Integer deleted;// 1 已删除  0 未删除
 
     public String getId() {
         return this.id;

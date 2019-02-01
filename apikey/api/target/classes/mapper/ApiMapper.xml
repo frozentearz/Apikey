@@ -34,7 +34,7 @@
 	</select>
 
 	<!-- 根据name查询 apikey -->
-	<select id="selectByName"  resultMap="BaseResultMap" parameterType="Object">
+	<select id="selectListByName"  resultMap="BaseResultMap" parameterType="Object">
 		select <include refid="Base_Column_List" />
 		from apikey where name = #{name}
 	</select>
