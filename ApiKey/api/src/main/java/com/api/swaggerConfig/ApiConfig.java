@@ -1,4 +1,4 @@
-package com.api.swaggerRun;
+package com.api.swaggerConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +26,9 @@ public class ApiConfig {
  
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("大师兄集成swagger的接口测试")
-                .description("闻道有先后，术业有专攻。")
-                .termsOfServiceUrl("http://blog.csdn.net/qq_27093465?viewmode=contents")
+                .title("API 接口文档")
+                .description("本页面由最新代码生成，所有接口都为最新版")
+                .termsOfServiceUrl("api.fuckby.me")
                 .license("")
                 .licenseUrl("")
                 .version("1.0.0")

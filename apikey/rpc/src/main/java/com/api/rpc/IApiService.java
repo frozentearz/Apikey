@@ -19,7 +19,7 @@ public interface IApiService {
      * @Description: TODO(查询所有信息) 非管理员勿用
      * @param:       
      * @return: List<ApiKey>      
-     * @throws   
+     * @throws
      */
     List<ApiKey> selectList();
 
@@ -28,19 +28,27 @@ public interface IApiService {
      * @Description: TODO(根据ID查询所有)
      * @param:  Id
      * @return: ApiKey
-     * @throws   
+     * @throws
      */
     ApiKey selectById(String Id);
 
     /**
      * @Title: selectListByName
-     * @Description: TODO(这里用一句话描述这个方法的作用)
-     * @param: @param name
-     * @param: @return
+     * @Description: TODO(根据 name 查询所有的 api)
+     * @param: name
      * @return: List<ApiKey>
      * @throws
      */
     List<ApiKey> selectListByName(String name);
 
+    /**
+     * @Title: selectListByVerify
+     * @Description: TODO(根据 name,password,type 查询指定 api)
+     * @param name
+     * @param password
+     * @param type
+     * @return ApiKey
+     * @throws
+     */
     ApiKey selectListByVerify(String name, String password, String type);
 }
