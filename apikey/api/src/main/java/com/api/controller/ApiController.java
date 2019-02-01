@@ -41,26 +41,24 @@ public class ApiController {
 	@ApiOperation(value = "获得所有的  API 对象的 list", notes = "GET、POST 请求，查询所有的 API")
     @ResponseBody
     @RequestMapping(value = "/all", method = { RequestMethod.GET, RequestMethod.POST })
-    public CommonResult<List<ApiKey>> getApis() {
+    public CommonResult<List<Map<String, Object>>> getApis() {
     	
         log.info("公开接口：" + this.getClass().getName() + ", 查询全部数据......");
         
-        List<ApiKey> result = new ArrayList<ApiKey>();
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         Map<String, Object> resultObject = new HashMap<String, Object>();
-        CommonResult<List<ApiKey>> cr = new CommonResult<>();
+        CommonResult<List<Map<String, Object>>> cr = new CommonResult<>();
         
         List<ApiKey> apiKeys = apiService.selectList();
-        
         for (ApiKey api : apiKeys) {
-        	if (api.getDeleted() == 1) {
+        	if (api.getDeleted() == 0) {
         		resultObject.put("id", api.getId());
             	resultObject.put("name", api.getName());
-            	resultObject.put("password", api.getPassword());
             	resultObject.put("type", api.getType());
             	resultObject.put("key", api.getKey());
             	resultObject.put("createTime", api.getCreateTime());
             	resultObject.put("status", api.getStatus());
-        		result.add(api);
+            	result.add(resultObject);
         	}
         }
         if (result != null) {
@@ -112,7 +110,7 @@ public class ApiController {
      * @return: ResponseEntity<String>
      * @throws
      */
-    @ApiOperation(value = "根据 name 查询所有 api ", notes = "根据用户名查询用户所有的 api")
+    @ApiOperation(value = "根据 name 查询所有 api", notes = "根据用户名查询用户所有的 api")
     @ApiImplicitParam(name = "name", value = "name", required = true, dataType = "String")
     @ResponseBody
     @RequestMapping(value = "/getApiByName", method = { RequestMethod.GET, RequestMethod.POST })
