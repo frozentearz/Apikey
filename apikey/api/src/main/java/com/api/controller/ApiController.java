@@ -34,14 +34,14 @@ public class ApiController {
     
     /**
      * @Title: getApis
-     * @Description: (查询所有 api)
+     * @Description: (查询所有 APIs)
      * @type：公开接口
      * @param: name
-     * @return: ResponseEntity<String>
+     * @return: CommonResult<List<Map<String, Object>>>
      * @throws
      */
     @SuppressWarnings({ "unused" })
-	@ApiOperation(value = "获得所有的  API 对象的 list", notes = "GET、POST 请求，查询所有的 API")
+	@ApiOperation(value = "获得所有的  API 对象的 list", notes = "GET、POST 请求，查询所有的 APIs")
     @ResponseBody
     @RequestMapping(value = "/all", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<Map<String, Object>>> getApis() {
@@ -78,13 +78,13 @@ public class ApiController {
 
     /**
      * @Title: getApiByName
-     * @Description: TODO(根据 name 查询所有 api)
+     * @Description: TODO(根据 name 查询所有 APIs)
      * @type：公开接口
      * @param: name
-     * @return: ResponseEntity<String>
+     * @return: CommonResult<List<Map<String, Object>>>
      * @throws
      */
-    @ApiOperation(value = "根据 name 查询所有 api", notes = "根据用户名查询用户所有的 api")
+    @ApiOperation(value = "根据 name 查询所有 APIs", notes = "根据用户名查询用户所拥有的全部 APIs")
     @ApiImplicitParam(name = "name", value = "name", required = true, dataType = "String")
     @ResponseBody
     @RequestMapping(value = "/getApiByName", method = { RequestMethod.GET, RequestMethod.POST })
