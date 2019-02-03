@@ -1,9 +1,6 @@
 package com.api.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,40 +10,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.api.common.model.pojo.ApiKey;
+import com.api.common.model.pojo.APIKey;
 import com.api.result.common.CommonResult;
-import com.api.rpc.IApiService;
+import com.api.rpc.IAPIKeyService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @RequestMapping ( "/root" )
-@ApiIgnore()
+//@ApiIgnore()
+@Api(value = "APIKey 私有接口", tags = "APIKey 私有接口")
 public class PrivateAPIController {
 	@Autowired
-    private IApiService apiService;
+    private IAPIKeyService apikeyService;
 	
 	private final static Logger log = Logger.getLogger(PrivateAPIController.class);
 	
     /**
-     * @Title: getApisWithRoot
-     * @Description: TODO(查询所有 api)
+     * @Title: getAPIKeysWithRoot
+     * @Description: TODO(查询所有 APIKey)
      * @type：非公开接口
-     * @param: 
-     * @return: ResponseEntity<String>
+     * @param: none
+     * @return: CommonResult<List<ApiKey>>
      * @throws
      */
     @ResponseBody
     @RequestMapping(value = "/allwithroot", method = { RequestMethod.GET, RequestMethod.POST })
-    public CommonResult<List<ApiKey>> getApisWithRoot() {
+    public CommonResult<List<APIKey>> getAPIKeysWithRoot() {
     	
         log.info("私有接口：" + this.getClass().getName() + ", 查询全部数据......");
         
-        List<ApiKey> apiKeys = apiService.selectList();
+        List<APIKey> apiKeys = apikeyService.selectListWithRoot();
         
-        CommonResult<List<ApiKey>> cr = new CommonResult<>();
+        CommonResult<List<APIKey>> cr = new CommonResult<>();
         if (apiKeys != null) {
         	cr.setCode(CommonResult.SUCCESS_CODE);
         	cr.setMsg("查询成功");
@@ -60,22 +59,22 @@ public class PrivateAPIController {
     }
     
     /**
-     * @Title: getApiByID
-     * @Description: TODO(根据 id 查询所有 api)
+     * @Title: getAPIKeyByIdWithRoot
+     * @Description: TODO(根据 id 查询所有 APIKey)
      * @type：私有接口
      * @param: id
-     * @return: CommonResult<Map<String, Object>>
+     * @return: CommonResult<APIKey>
      * @throws
      */
-    @ApiOperation(value = "根据 id 查询所有 APIs", notes = "根据用户名查询用户所有的 APIs")
+    @ApiOperation(value = "根据 id 查询所有 APIKeys", notes = "根据 id 查询用户所有的 APIKeys")
     @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String")
     @ResponseBody
-    @RequestMapping(value = "/getApiById", method = { RequestMethod.GET, RequestMethod.POST })
-    public CommonResult<ApiKey> getApiByName(@RequestParam String id) {
+    @RequestMapping(value = "/getAPIKeyByIdWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
+    public CommonResult<APIKey> getAPIKeyByIdWithRoot(@RequestParam String id) {
     	log.info("私有接口：" + this.getClass().getName() + "根据 " + id + " 查询全部数据......");
-    	CommonResult<ApiKey> cr = new CommonResult<>();
+    	CommonResult<APIKey> cr = new CommonResult<>();
     	
-    	ApiKey apiKey = apiService.selectById(id);
+    	APIKey apiKey = apikeyService.selectByIdWithRoot(id);
     	
         if (apiKey != null) {
         	cr.setCode(CommonResult.SUCCESS_CODE);
@@ -87,5 +86,103 @@ public class PrivateAPIController {
         	cr.setEntiy(apiKey);
         }
         return cr;
+    }
+    
+    /**
+     * @Title: getAPIKeyByNameWithRoot
+     * @Description: TODO(根据 name 查询所有 APIKey)
+     * @type：私有接口
+     * @param: name
+     * @return: CommonResult<List<APIKey>>
+     * @throws
+     */
+    @ApiOperation(value = "根据 Name 查询所有 APIKeys", notes = "根据用户名查询用户所有的 APIKeys")
+    @ApiImplicitParam(name = "name", value = "name", required = true, dataType = "String")
+    @ResponseBody
+    @RequestMapping(value = "/getAPIKeyByNameWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
+    public CommonResult<List<APIKey>> getAPIKeyByNameWithRoot(@RequestParam String name) {
+    	log.info("私有接口：" + this.getClass().getName() + "根据 " + name + " 查询全部数据......");
+    	CommonResult<List<APIKey>> cr = new CommonResult<>();
+    	
+    	List<APIKey> apiKeys = apikeyService.selectByNameWithRoot(name);
+    	
+    	if (apiKeys != null) {
+    		cr.setCode(CommonResult.SUCCESS_CODE);
+    		cr.setMsg("查询成功");
+    		cr.setEntiy(apiKeys);
+    	} else {
+    		cr.setCode(CommonResult.NULLDATA_CODE);
+    		cr.setMsg("空数据");
+    		cr.setEntiy(apiKeys);
+    	}
+    	return cr;
+    }
+    
+    /**
+     * @Title: getAPIKeyByTypeWithRoot
+     * @Description: TODO(根据 type 查询所有 APIKey)
+     * @type：私有接口
+     * @param: type
+     * @return: CommonResult<List<APIKey>>
+     * @throws
+     */
+    @ApiOperation(value = "根据 Type 查询所有 APIKeys", notes = "根据类型查询用户所有的 APIKeys")
+    @ApiImplicitParam(name = "type", value = "type", required = true, dataType = "String")
+    @ResponseBody
+    @RequestMapping(value = "/getAPIKeyByTypeWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
+    public CommonResult<List<APIKey>> getAPIKeyByTypeWithRoot(@RequestParam String type) {
+    	log.info("私有接口：" + this.getClass().getName() + "根据 " + type + " 查询全部数据......");
+    	CommonResult<List<APIKey>> cr = new CommonResult<>();
+    	
+    	List<APIKey> apiKeys = apikeyService.selectByTypeWithRoot(type);
+    	
+    	if (apiKeys != null) {
+    		cr.setCode(CommonResult.SUCCESS_CODE);
+    		cr.setMsg("查询成功");
+    		cr.setEntiy(apiKeys);
+    	} else {
+    		cr.setCode(CommonResult.NULLDATA_CODE);
+    		cr.setMsg("空数据");
+    		cr.setEntiy(apiKeys);
+    	}
+    	return cr;
+    }
+    
+    /**
+     * @Title: getAPIKeyByTypeAndTagWithRoot
+     * @Description: TODO(根据 Type,Tag 查询所有 APIKeys)
+     * @type：私有接口
+     * @param: type
+     * @param: tag
+     * @return: CommonResult<List<APIKey>>
+     * @throws 
+     */
+    @ApiOperation(value = "根据 Type,Tag 查询所有 APIKeys", notes = "根据类型与标签查询用户所有的 APIKeys")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "type", value = "type", required = true, dataType = "String"),
+    	@ApiImplicitParam(name = "tag", value = "tag", required = true, dataType = "String")
+    })
+    @ResponseBody
+    @RequestMapping(value = "/getAPIKeyByTypeAndTagWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
+    public CommonResult<List<APIKey>> getAPIKeyByTypeAndTagWithRoot(@RequestParam String type, @RequestParam String tag) {
+    	log.info("私有接口：" + this.getClass().getName() + "根据 " + type + " + " + tag + " 查询全部数据......");
+    	CommonResult<List<APIKey>> cr = new CommonResult<>();
+    	
+    	APIKey apikey = new APIKey();
+    	apikey.setType(type);
+    	apikey.setTag(tag);
+    	
+    	List<APIKey> apiKeys = apikeyService.selectByTypeAndTagWithRoot(apikey);
+    	
+    	if (apiKeys != null) {
+    		cr.setCode(CommonResult.SUCCESS_CODE);
+    		cr.setMsg("查询成功");
+    		cr.setEntiy(apiKeys);
+    	} else {
+    		cr.setCode(CommonResult.NULLDATA_CODE);
+    		cr.setMsg("空数据");
+    		cr.setEntiy(apiKeys);
+    	}
+    	return cr;
     }
 }

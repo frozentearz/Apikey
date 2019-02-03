@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.dao.APIKeyDAO" >
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.api.common.model.pojo.APIKey" >
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="password" property="password"/>
+		<result column="type" property="type"/>
+		<result column="tag" property="tag"/>
+		<result column="key" property="key"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="status" property="status"/>
+		<result column="deleted" property="deleted"/>
+	</resultMap>
+
+	<!-- apikey table all fields -->
+	<sql id="Base_Column_List" >
+		*
+	</sql>
+	
+	<!------------------------------------ 管理员操作接口 ---------------------------------------->
+	<!-- 查询所有 APIKey -->
+	<select id="selectListWithRoot"  resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from apikey
+	</select>
+	
+	<!-- 根据 id 查询 APIKey -->
+	<select id="selectByIdWithRoot"  resultMap="BaseResultMap" parameterType="Object">
+		select * from apikey where id = #{id}
+	</select>
+	
+	<!-- 根据 name 查询 APIKey -->
+	<select id="selectByNameWithRoot"  resultMap="BaseResultMap" parameterType="Object">
+		select * from apikey where name = #{name}
+	</select>
+	
+	<!-- 根据 type 查询 APIKey -->
+	<select id="selectByTypeWithRoot"  resultMap="BaseResultMap" parameterType="Object">
+		select * from apikey where type = #{type}
+	</select>
+	
+	<!-- 根据 type, tag 查询 APIKey -->
+	<select id="selectByTypeAndTagWithRoot"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
+		select * from apikey where type = #{ApiKey.type} and tag = #{ApiKey.tag}
+	</select>
+	
+	<!------------------------------------ 用户操作接口 ---------------------------------------->
+	<!-- 根据 name，password 查询 APIKey -->
+	<select id="selectByUser"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
+		select <include refid="Base_Column_List" />
+		from apikey where name = #{ApiKey.name} and password = #{ApiKey.password}
+	</select>
+	
+	<!-- 根据 name，password，type 查询 APIKey -->
+	<select id="selectByType"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
+		select <include refid="Base_Column_List" />
+		from apikey where name = #{ApiKey.name} and password = #{ApiKey.password} and type = #{ApiKey.type}
+	</select>
+	
+	<!-- 根据 name，password，type，tag 查询 APIKey -->
+	<select id="selectByTag"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
+		select <include refid="Base_Column_List" />
+		from apikey where name = #{ApiKey.name} and password = #{ApiKey.password} and type = #{ApiKey.type} and tag = #{ApiKey.tag}
+	</select>
+	
+	<!-- 插入一个 APIKey -->
+	<insert id="insertByAPIKey" resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
+		INSERT INTO apikey VALUES(
+			REPLACE(UUID(),'-',''), 
+			#{ApiKey.name,jdbcType=VARCHAR},
+			SHA1(#{ApiKey.password,jdbcType=VARCHAR}),
+			#{ApiKey.type,jdbcType=VARCHAR},
+			#{ApiKey.tag,jdbcType=VARCHAR},
+			#{ApiKey.key,jdbcType=VARCHAR},
+			#{ApiKey.createTime,jdbcType=TIMESTAMP},
+			#{ApiKey.updateTime,jdbcType=TIMESTAMP},
+			#{ApiKey.status,jdbcType=INTEGER},
+			#{ApiKey.deleted,jdbcType=INTEGER},
+		)
+	</insert>
+	
+	<!-- 根据Id更新APIKey -->
+	<update id="updateById" parameterType="com.api.common.model.pojo.APIKey">
+		UPDATE apikey SET
+			name = #{ApiKey.name},
+			password = #{ApiKey.password},
+			type = #{ApiKey.type},
+			tag = #{ApiKey.tag},
+			key = #{ApiKey.key},
+			updateTime = #{ApiKey.updateTime},
+			status = #{ApiKey.status},
+			deleted = #{ApiKey.deleted}
+		WHERE
+			id = #{ApiKey.id}
+	</update>
+</mapper>   
