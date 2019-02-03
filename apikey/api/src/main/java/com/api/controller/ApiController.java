@@ -106,7 +106,7 @@ public class ApiController {
     public CommonResult<Map<String, Object>> getAPI(@RequestParam String name, @RequestParam String password, @RequestParam String type) {
     	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 的 " + type + " 查询APIKey......");
     	
-    	APIKey apiKey = apiService.selectByVerify(name, password, type);
+    	APIKey apiKey = apikeyService.selectByType(name, password, type);
     	
     	CommonResult<Map<String, Object>> cr = new CommonResult<>();
     	List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
