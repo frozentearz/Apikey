@@ -100,7 +100,6 @@ public class ApiController {
         @ApiImplicitParam(name = "password", value = "password", required = true, dataType = "String"),
         @ApiImplicitParam(name = "type", value = "type", required = true, dataType = "String")
     })
-    
     @ResponseBody
     @RequestMapping(value = "/getAPI", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<Map<String, Object>> getAPI(@RequestParam String name, @RequestParam String password, @RequestParam String type) {
