@@ -70,7 +70,7 @@
 	</select>
 	
 	<!-- 插入一个 APIKey -->
-	<insert id="insertByAPIKey" resultMap="java.lang.Integer" parameterType="com.api.common.model.pojo.APIKey">
+	<insert id="insertByAPIKey" parameterType="com.api.common.model.pojo.APIKey">
 		INSERT INTO apikey VALUES(
 			REPLACE(UUID(),'-',''), 
 			#{ApiKey.name,jdbcType=VARCHAR},
@@ -86,7 +86,7 @@
 	</insert>
 	
 	<!-- 根据Id更新APIKey -->
-	<update id="updateById" resultMap="java.lang.Integer" parameterType="com.api.common.model.pojo.APIKey">
+	<update id="updateById" parameterType="com.api.common.model.pojo.APIKey">
 		UPDATE apikey SET
 			name = #{ApiKey.name},
 			password = #{ApiKey.password},
