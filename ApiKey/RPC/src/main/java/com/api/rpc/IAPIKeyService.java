@@ -88,17 +88,17 @@ public interface IAPIKeyService {
      * @Title: insertByAPIKey
      * @Description: TODO(插入一个 APIKey)
      * @param: apikey  
-     * @return: void
+     * @return: Integer
      * @throws
      */
-    void insertByAPIKey(APIKey apikey);
+    Integer insertByAPIKey(APIKey apikey);
     
     /**
      * @Title: updateById
      * @Description: TODO(根据id更新APIKey)
      * @param: apikey  
-     * @return: void
+     * @return: Integer
      * @throws
      */
-    void updateById(APIKey apikey);
+    Integer updateById(APIKey apikey);
 }

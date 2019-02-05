@@ -102,12 +102,12 @@ public class APIKeyServiceImpl implements IAPIKeyService {
         return apikey;
 	}
 
-	public void insertByAPIKey(APIKey apikey) {
-    	apikeyDAO.insertByAPIKey(apikey);
+	public Integer insertByAPIKey(APIKey apikey) {
+    	return apikeyDAO.insertByAPIKey(apikey);
 	}
 
-	public void updateById(APIKey apikey) {
-		apikeyDAO.updateById(apikey);
+	public Integer updateById(APIKey apikey) {
+		return apikeyDAO.updateById(apikey);
 	}
 
 }

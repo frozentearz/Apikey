@@ -40,12 +40,11 @@ public class PrivateAPIController {
     @ResponseBody
     @RequestMapping(value = "/allwithroot", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<APIKey>> getAPIKeysWithRoot() {
-    	
         log.info("私有接口：" + this.getClass().getName() + ", 查询全部数据......");
+        CommonResult<List<APIKey>> cr = new CommonResult<>();
         
         List<APIKey> apiKeys = apikeyService.selectListWithRoot();
         
-        CommonResult<List<APIKey>> cr = new CommonResult<>();
         if (apiKeys != null) {
         	cr.setCode(CommonResult.SUCCESS_CODE);
         	cr.setMsg("查询成功");

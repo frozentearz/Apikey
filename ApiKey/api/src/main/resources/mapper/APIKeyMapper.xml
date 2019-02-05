@@ -22,7 +22,7 @@
 		*
 	</sql>
 	
-	<!------------------------------------ 管理员操作接口 ---------------------------------------->
+	<!--                          管理员操作接口                                                                       -->
 	<!-- 查询所有 APIKey -->
 	<select id="selectListWithRoot"  resultMap="BaseResultMap">
 		select
@@ -50,7 +50,7 @@
 		select * from apikey where type = #{ApiKey.type} and tag = #{ApiKey.tag}
 	</select>
 	
-	<!------------------------------------ 用户操作接口 ---------------------------------------->
+	<!--                   用户操作接口                                                     -->
 	<!-- 根据 name，password 查询 APIKey -->
 	<select id="selectByUser"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
 		select <include refid="Base_Column_List" />
@@ -70,7 +70,7 @@
 	</select>
 	
 	<!-- 插入一个 APIKey -->
-	<insert id="insertByAPIKey" resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
+	<insert id="insertByAPIKey" resultMap="java.lang.Integer" parameterType="com.api.common.model.pojo.APIKey">
 		INSERT INTO apikey VALUES(
 			REPLACE(UUID(),'-',''), 
 			#{ApiKey.name,jdbcType=VARCHAR},
@@ -86,7 +86,7 @@
 	</insert>
 	
 	<!-- 根据Id更新APIKey -->
-	<update id="updateById" parameterType="com.api.common.model.pojo.APIKey">
+	<update id="updateById" resultMap="java.lang.Integer" parameterType="com.api.common.model.pojo.APIKey">
 		UPDATE apikey SET
 			name = #{ApiKey.name},
 			password = #{ApiKey.password},
