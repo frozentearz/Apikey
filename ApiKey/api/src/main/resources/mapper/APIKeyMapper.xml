@@ -54,19 +54,19 @@
 	<!-- 根据 name，password 查询 APIKey -->
 	<select id="selectByUser"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
 		select <include refid="Base_Column_List" />
-		from apikey where name = #{name} and password = #{password}
+		from apikey where name = #{name} and password = SHA1(#{password,jdbcType=VARCHAR})
 	</select>
 	
 	<!-- 根据 name，password，type 查询 APIKey -->
 	<select id="selectByType"  resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
 		select <include refid="Base_Column_List" />
-		from apikey where name = #{name} and password = #{password} and type = #{type}
+		from apikey where name = #{name} and password = SHA1(#{password,jdbcType=VARCHAR}) and type = #{type}
 	</select>
 	
 	<!-- 根据 name，password，type，tag 查询 APIKey -->
 	<select id="selectByTag" resultMap="BaseResultMap" parameterType="com.api.common.model.pojo.APIKey">
 		select <include refid="Base_Column_List" />
-		from apikey where name = #{name} and password = #{password} and type = #{type} and tag = #{tag}
+		from apikey where name = #{name} and password = SHA1(#{password,jdbcType=VARCHAR}) and type = #{type} and tag = #{tag}
 	</select>
 	
 	<!-- 插入一个 APIKey -->
@@ -89,7 +89,7 @@
 	<update id="updateById" parameterType="com.api.common.model.pojo.APIKey">
 		UPDATE apikey SET
 			name = #{name},
-			password = #{password},
+			password = SHA1(#{password,jdbcType=VARCHAR}),
 			type = #{type},
 			tag = #{tag},
 			key = #{key},
