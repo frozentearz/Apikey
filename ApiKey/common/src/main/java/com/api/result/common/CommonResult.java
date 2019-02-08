@@ -3,6 +3,8 @@ package com.api.result.common;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -68,6 +70,7 @@ public class CommonResult<T> implements Serializable {
 	 * 服务器系统当前时间
 	 */
 	@ApiModelProperty(value = "服务器系统当前时间", required = true)
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss",timezone = "GMT+8")
 	private Date systemTime = new Date();
 	
 	public CommonResult(){

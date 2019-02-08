@@ -2,6 +2,8 @@ package com.api.common.model.pojo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @description:
  * @author: Frazier
