@@ -70,7 +70,7 @@ public class PrivateAPIController {
     @ResponseBody
     @RequestMapping(value = "/getAPIKeyByIdWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<APIKey> getAPIKeyByIdWithRoot(@RequestParam String id) {
-    	log.info("私有接口：" + this.getClass().getName() + "根据 " + id + " 查询全部数据......");
+    	log.info("私有接口：" + this.getClass().getName() + "根据 id: " + id + " 查询全部数据......");
     	CommonResult<APIKey> cr = new CommonResult<>();
     	
     	APIKey apiKey = apikeyService.selectByIdWithRoot(id);
@@ -100,7 +100,7 @@ public class PrivateAPIController {
     @ResponseBody
     @RequestMapping(value = "/getAPIKeyByNameWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<APIKey>> getAPIKeyByNameWithRoot(@RequestParam String name) {
-    	log.info("私有接口：" + this.getClass().getName() + "根据 " + name + " 查询全部数据......");
+    	log.info("私有接口：" + this.getClass().getName() + "根据 name: " + name + " 查询全部数据......");
     	CommonResult<List<APIKey>> cr = new CommonResult<>();
     	
     	List<APIKey> apiKeys = apikeyService.selectByNameWithRoot(name);
@@ -130,7 +130,7 @@ public class PrivateAPIController {
     @ResponseBody
     @RequestMapping(value = "/getAPIKeyByTypeWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<APIKey>> getAPIKeyByTypeWithRoot(@RequestParam String type) {
-    	log.info("私有接口：" + this.getClass().getName() + "根据 " + type + " 查询全部数据......");
+    	log.info("私有接口：" + this.getClass().getName() + "根据 type:" + type + " 查询全部数据......");
     	CommonResult<List<APIKey>> cr = new CommonResult<>();
     	
     	List<APIKey> apiKeys = apikeyService.selectByTypeWithRoot(type);
@@ -164,7 +164,7 @@ public class PrivateAPIController {
     @ResponseBody
     @RequestMapping(value = "/getAPIKeyByTypeAndTagWithRoot", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<APIKey>> getAPIKeyByTypeAndTagWithRoot(@RequestParam String type, @RequestParam String tag) {
-    	log.info("私有接口：" + this.getClass().getName() + "根据 " + type + " + " + tag + " 查询全部数据......");
+    	log.info("私有接口：" + this.getClass().getName() + "根据 type:" + type + " + tag: " + tag + " 查询全部数据......");
     	CommonResult<List<APIKey>> cr = new CommonResult<>();
     	
     	APIKey apikey = new APIKey();

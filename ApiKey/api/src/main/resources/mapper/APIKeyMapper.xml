@@ -81,22 +81,21 @@
 			#{createTime,jdbcType=TIMESTAMP},
 			#{updateTime,jdbcType=TIMESTAMP},
 			#{status,jdbcType=INTEGER},
-			#{deleted,jdbcType=INTEGER},
+			#{deleted,jdbcType=INTEGER}
 		)
 	</insert>
 	
 	<!-- 根据Id更新APIKey -->
 	<update id="updateById" parameterType="com.api.common.model.pojo.APIKey">
 		UPDATE apikey SET
-			name = #{name},
-			password = SHA1(#{password,jdbcType=VARCHAR}),
-			type = #{type},
-			tag = #{tag},
-			key = #{key},
-			updateTime = #{updateTime},
-			status = #{status},
-			deleted = #{deleted}
+			`name` = #{name},
+			`password` = SHA1(#{password,jdbcType=VARCHAR}),
+			`type` = #{type},
+			`tag` = #{tag},
+			`key` = #{key},
+			`update_time` = #{updateTime},
+			`deleted` = #{deleted}
 		WHERE
-			id = #{id}
+			`id` = #{id}
 	</update>
 </mapper>   
