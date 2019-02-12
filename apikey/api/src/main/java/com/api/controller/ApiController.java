@@ -51,7 +51,7 @@ public class ApiController {
     @ResponseBody
     @RequestMapping(value = "/getAPIKeyByUser", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<Map<String, Object>>> getAPIKeyByUser(@RequestParam String name, @RequestParam String password) {
-    	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 查询全部数据......");
+    	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 查询全部数据......");
     	CommonResult<List<Map<String, Object>>> cr = new CommonResult<>();
     	
     	APIKey apikey = new APIKey();
@@ -69,6 +69,7 @@ public class ApiController {
 	        		resultObject.put("id", api.getId());
 	            	resultObject.put("name", api.getName());
 	            	resultObject.put("type", api.getType());
+	            	resultObject.put("tag", api.getTag());
 	            	resultObject.put("key", api.getKey());
 	            	resultObject.put("createTime", api.getCreateTime());
 	            	resultObject.put("status", api.getStatus());
@@ -105,7 +106,7 @@ public class ApiController {
     @ResponseBody
     @RequestMapping(value = "/getAPIByType", method = { RequestMethod.GET, RequestMethod.POST })
     public CommonResult<List<Map<String, Object>>> getAPIByType(@RequestParam String name, @RequestParam String password, @RequestParam String type) {
-    	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 的 " + type + " 查询APIKey......");
+    	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type: " + type + " 查询APIKey......");
     	CommonResult<List<Map<String, Object>>> cr = new CommonResult<>();
     	
     	APIKey apikey = new APIKey();
@@ -166,7 +167,7 @@ public class ApiController {
     		@RequestParam String password,
     		@RequestParam String type,
     		@RequestParam String tag) {
-    	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 的 " + type + " 和 " + tag + " 查询指定 APIKey......");
+    	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type: " + type + " 和 tag: " + tag + " 查询指定 APIKey......");
     	CommonResult<Map<String, Object>> cr = new CommonResult<>();
     	
     	APIKey apikey = new APIKey();
@@ -208,7 +209,7 @@ public class ApiController {
      * @param: type
      * @param: tag
      * @param: key
-     * @return: CommonResult<Map<String, Object>>
+     * @return: CommonResult<String>
      * @throws
      */
     @ApiOperation(value = "根据 name，password，type，tag，key 保存 APIKey", notes = "【推荐接口】 通过 name，password，type，tag，key 保存一个 APIKey")
@@ -221,14 +222,14 @@ public class ApiController {
     })
     @ResponseBody
     @RequestMapping(value = "/saveByAPIKey", method = {RequestMethod.POST})
-    public CommonResult<Map<String, Object>> saveByAPIKey(
+    public CommonResult<String> saveByAPIKey(
     		@RequestParam String name,
     		@RequestParam String password,
     		@RequestParam String type,
     		@RequestParam String tag,
     		@RequestParam String key) {
-    	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 的 " + type + " 和 " + tag + " 保存 APIKey......");
-    	CommonResult<Map<String, Object>> cr = new CommonResult<>();
+    	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type: " + type + " 和 tag:" + tag + " 保存 APIKey......");
+    	CommonResult<String> cr = new CommonResult<>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setName(name);
@@ -236,8 +237,16 @@ public class ApiController {
     	apikey.setType(type);
     	apikey.setTag(tag);
     	apikey.setKey(key);
+    	apikey.setCreateTime(new Date());
+    	apikey.setStatus(1);
+    	apikey.setDeleted(0);
     	
-    	if (apikeyService.insertByAPIKey(apikey) == 1) {
+    	if (apikeyService.selectByTag(apikey) != null) {
+    		// 先根据name password type tag 查询一遍，如果没有才插入
+    		cr.setCode(CommonResult.FAILURE_CODE);
+    		cr.setMsg("插入失败");
+    		cr.setEntiy("数据库中已有重复的 name、password、type、tag 项");
+    	} else if (apikeyService.insertByAPIKey(apikey) == 1) {
     		cr.setCode(CommonResult.SUCCESS_CODE);
     		cr.setMsg("插入成功");
     	} else {
@@ -257,7 +266,7 @@ public class ApiController {
      * @param: type
      * @param: tag
      * @param: key
-     * @return: CommonResult<Map<String, Object>>
+     * @return: CommonResult<String>
      * @throws
      */
     @ApiOperation(value = "更新 APIKey", notes = "更新一个 APIKey")
@@ -271,15 +280,15 @@ public class ApiController {
     })
     @ResponseBody
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    public CommonResult<Map<String, Object>> updateById(
+    public CommonResult<String> updateById(
     		@RequestParam String id,
     		@RequestParam String name,
     		@RequestParam String password,
     		@RequestParam String type,
     		@RequestParam String tag,
     		@RequestParam String key) {
-    	log.info("公共接口：" + this.getClass().getName() + "根据 " + name + " 的 " + type + " 和 " + tag + " 保存 APIKey......");
-    	CommonResult<Map<String, Object>> cr = new CommonResult<>();
+    	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type:" + type + " 和 tag:" + tag + " 保存 APIKey......");
+    	CommonResult<String> cr = new CommonResult<>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setId(id);
@@ -292,10 +301,10 @@ public class ApiController {
     	
     	if (apikeyService.updateById(apikey) == 1) {
     		cr.setCode(CommonResult.SUCCESS_CODE);
-    		cr.setMsg("插入成功");
+    		cr.setMsg("更新成功");
     	} else {
     		cr.setCode(CommonResult.FAILURE_CODE);
-    		cr.setMsg("插入失败");
+    		cr.setMsg("更新失败");
     	}
     	return cr;
     }

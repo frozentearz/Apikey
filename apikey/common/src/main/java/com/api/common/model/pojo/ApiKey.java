@@ -17,7 +17,9 @@ public class APIKey {
     private String type;// 【APIKey的类型】多个APIKey可能有同一类型，推荐填入网站（在某网站拥有多个APIKey）
     private String tag;// 【唯一】在同一类型下的唯一标识
     private String key;//
+    @JsonFormat(pattern="yyyy/MM/dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;//
+    @JsonFormat(pattern="yyyy/MM/dd HH:mm:ss", timezone="GMT+8")
     private Date updateTime;//
     private Integer status;// 【apikey状态】1可用，2即将失效，0失效
     private Integer deleted;// 【soft delete】1 已删除，0 未删除
