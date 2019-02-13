@@ -26,9 +26,9 @@ public class ApiConfig {
  
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("API 接口文档")
-                .description("本页面由最新代码生成，所有接口都为最新版")
-                .termsOfServiceUrl("api.fuckby.me")
+                .title("APIKey 接口文档")
+                .description("本项目可以储存第三方的APIKey，需要时直接访问本项目的API接口；从而避免把APIKey暴露在第三方开源平台（如：github）。因为某些第三方API提供商会在github上检测自家APIKey是否暴露在开源平台，是则对相应的账号进行暂封处理。")
+                .termsOfServiceUrl("apikey.fuckby.me")
                 .license("")
                 .licenseUrl("")
                 .version("1.0.0")

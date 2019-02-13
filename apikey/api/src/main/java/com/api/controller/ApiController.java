@@ -49,10 +49,10 @@ public class ApiController {
     	@ApiImplicitParam(name = "password", value = "password", required = true, dataType = "String")
     })
     @ResponseBody
-    @RequestMapping(value = "/getAPIKeyByUser", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/getAPIKeyByUser", method = { RequestMethod.POST })
     public CommonResult<List<Map<String, Object>>> getAPIKeyByUser(@RequestParam String name, @RequestParam String password) {
     	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 查询全部数据......");
-    	CommonResult<List<Map<String, Object>>> cr = new CommonResult<>();
+    	CommonResult<List<Map<String, Object>>> cr = new CommonResult<List<Map<String, Object>>>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setName(name);
@@ -104,10 +104,10 @@ public class ApiController {
         @ApiImplicitParam(name = "type", value = "type", required = true, dataType = "String")
     })
     @ResponseBody
-    @RequestMapping(value = "/getAPIByType", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/getAPIByType", method = { RequestMethod.POST })
     public CommonResult<List<Map<String, Object>>> getAPIByType(@RequestParam String name, @RequestParam String password, @RequestParam String type) {
     	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type: " + type + " 查询APIKey......");
-    	CommonResult<List<Map<String, Object>>> cr = new CommonResult<>();
+    	CommonResult<List<Map<String, Object>>> cr = new CommonResult<List<Map<String, Object>>>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setName(name);
@@ -153,7 +153,7 @@ public class ApiController {
      * @return: CommonResult<Map<String, Object>>
      * @throws
      */
-    @ApiOperation(value = "根据 name，password，type，tag 查询指定 APIKey", notes = "【推荐接口】 通过 name，password，type，tag 获取指定 APIKey")
+    @ApiOperation(value = "【推荐接口】 根据 name，password，type，tag 查询指定 APIKey", notes = "【推荐接口】 通过 name，password，type，tag 获取指定 APIKey")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "name", value = "name", required = true, dataType = "String"),
     	@ApiImplicitParam(name = "password", value = "password", required = true, dataType = "String"),
@@ -161,14 +161,14 @@ public class ApiController {
     	@ApiImplicitParam(name = "tag", value = "tag", required = true, dataType = "String")
     })
     @ResponseBody
-    @RequestMapping(value = "/getAPIByTag", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/getAPIByTag", method = {  RequestMethod.POST })
     public CommonResult<Map<String, Object>> getAPIByTag(
     		@RequestParam String name,
     		@RequestParam String password,
     		@RequestParam String type,
     		@RequestParam String tag) {
     	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type: " + type + " 和 tag: " + tag + " 查询指定 APIKey......");
-    	CommonResult<Map<String, Object>> cr = new CommonResult<>();
+    	CommonResult<Map<String, Object>> cr = new CommonResult<Map<String, Object>>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setName(name);
@@ -212,7 +212,7 @@ public class ApiController {
      * @return: CommonResult<String>
      * @throws
      */
-    @ApiOperation(value = "根据 name，password，type，tag，key 保存 APIKey", notes = "【推荐接口】 通过 name，password，type，tag，key 保存一个 APIKey")
+    @ApiOperation(value = "【推荐接口】 根据 name，password，type，tag，key 保存 APIKey", notes = "【推荐接口】 通过 name，password，type，tag，key 保存一个 APIKey")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "name", value = "name", required = true, dataType = "String"),
     	@ApiImplicitParam(name = "password", value = "password", required = true, dataType = "String"),
@@ -229,7 +229,7 @@ public class ApiController {
     		@RequestParam String tag,
     		@RequestParam String key) {
     	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type: " + type + " 和 tag:" + tag + " 保存 APIKey......");
-    	CommonResult<String> cr = new CommonResult<>();
+    	CommonResult<String> cr = new CommonResult<String>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setName(name);
@@ -288,7 +288,7 @@ public class ApiController {
     		@RequestParam String tag,
     		@RequestParam String key) {
     	log.info("公共接口：" + this.getClass().getName() + "根据 name: " + name + " 的 type:" + type + " 和 tag:" + tag + " 保存 APIKey......");
-    	CommonResult<String> cr = new CommonResult<>();
+    	CommonResult<String> cr = new CommonResult<String>();
     	
     	APIKey apikey = new APIKey();
     	apikey.setId(id);
